@@ -38,6 +38,7 @@ import RubrosPage from './pages/Rubros/Rubro.page';
 import UserAdministrationPage from './pages/UserAdministrations/userAdministration.page';
 import ResultadosPage from './pages/Resultados/Resultado.page';
 import { ItemProvider } from './contexts/Item.context';
+import { RegisterPage } from './pages/Register/Register.page';
 
 setupIonicReact();
 
@@ -48,7 +49,10 @@ const Service = () => {
         <LoginPage />
         </Route>
         <Route exact path="/home">
-          <Home username="Joaquín" /> 
+          <Home username="Joaquín" />
+        </Route>
+        <Route exact path="/register">
+          <RegisterPage />
         </Route>
         <Route exact path="/Formularios">
           <FormulariosPage />

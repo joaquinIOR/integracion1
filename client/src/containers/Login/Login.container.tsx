@@ -15,11 +15,11 @@ export const LoginContainer = () => {
                 <IonRow>
                     <IonCol>
                     </IonCol>
-                    <IonCol sizeXl="3" sizeLg="4" sizeMd="6" sizeSm="10" sizeXs="12">
+                    <IonCol >
                         {/*LOGO*/}
 
                         <div style={{textAlign: 'center', marginBottom: '20px', marginTop: 100}}>
-                            <img src='./images/simotec.webp'></img>
+                            <img src='/public/images/images.png'></img>
                         </div>
 
                         {/* Formulario */}
@@ -47,7 +47,10 @@ export const LoginContainer = () => {
                             <IonButton expand="block" className="ion-margin-top" onClick={handleLogin}>
                               iniciar sesion
                             </IonButton>
-
+                            <IonButton expand="block" className="ion-margin-top" routerLink="/register">
+                                registrarse
+                            </IonButton>
+ 
                     </IonCol>
                     <IonCol>
                         
