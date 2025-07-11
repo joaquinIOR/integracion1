@@ -1,0 +1,18 @@
+{
+  "welcomeMessage": "Hello, {{name}}!",
+  "welcomeGuest": "Welcome to Ferremax",
+  "loginTitle": "Sign In",
+  "registerTitle": "Create Account",
+  "emailLabel": "Email",
+  "passwordLabel": "Password",
+  "confirmPasswordLabel": "Confirm Password",
+  "loginButton": "Sign In",
+  "registerButton": "Register",
+  "logoutButton": "Log Out",
+  "passwordsDoNotMatch": "Passwords do not match.",
+  "registrationSuccess": "Registration successful! You can now log in.",
+  "filterByBrand": "Filter by Brand",
+  "searchByName": "Search by Name",
+  "filtersTitle": "Filters",
+  "shoppingCartTitle": "Shopping Cart"
+}

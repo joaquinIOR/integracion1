@@ -15,6 +15,7 @@
   "author": "Gonzalo Orellana C",
   "license": "ISC",
   "dependencies": {
-    "concurrently": "^8.2.2"
+    "concurrently": "^8.2.2",
+    "transbank-sdk": "^6.1.0"
   }
 }

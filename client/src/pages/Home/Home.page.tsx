@@ -1,90 +1,90 @@
-import React, { useEffect } from 'react';
-import {IonButton, IonButtons, IonCol, IonContent, IonGrid, IonHeader, IonIcon, IonImg,
-  IonMenuToggle,
-  IonPage,
-  IonRouterOutlet,
-  IonRow,
-  IonToolbar,
+// src/pages/Home/Home.page.tsx (Modificar)
+import React from 'react';
+import { useTranslation } from 'react-i18next';
+import {
+    IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonButtons,
+    IonMenuButton, IonIcon, IonButton, IonMenu, IonGrid, IonRow, IonCol
 } from '@ionic/react';
-import { menuOutline, person, cart } from 'ionicons/icons';
-import { Redirect, Route } from 'react-router-dom';
-import { SideMenu } from '../../components/Menu';
-import { ItemCard } from '../../components/ItemCard';
-import { SearchBar } from '../../components/Search';
+import { person, cart, logOutOutline } from 'ionicons/icons';
+import { useAuth } from '../../contexts/Auth.context';
 import { useItem } from '../../contexts/Item.context';
+import { LanguageSwitcher } from '../../components/LanguageSwitcher';
+import { FilterMenu } from '../../components/FilterMenu';
+import { ProductCarousel } from '../../components/ProductCarousel';
+import { ItemCard } from '../../components/ItemCard';
 
-
-// --- Estructura Principal de la App ---
 const AppStructure: React.FC = () => {
+    // 1. Llama a los hooks una sola vez al principio
+    const { t } = useTranslation();
+    const { isAuthenticated, user, logout } = useAuth();
+    const { filteredItems } = useItem();
 
-  const { items } = useItem();
-  useEffect(() => {
-    console.log({ items });
-    // Aquí podrías cargar los datos de los items si es necesario
-    // Por ejemplo, podrías hacer una llamada a la API para obtener los items
-  }, [items]);
+    return (
+        <>
+            <IonMenu contentId="main-content">
+                <IonHeader>
+                    <IonToolbar color="dark">
+                        <IonTitle>{t('filtersTitle')}</IonTitle>
+                    </IonToolbar>
+                </IonHeader>
+                <IonContent>
+                    <FilterMenu />
+                </IonContent>
+            </IonMenu>
 
-  return (
-    <>
-    <SideMenu />
-      <IonPage id="main-content">
-        <IonHeader>
-          <IonToolbar color="dark">
-            {/* Botón para abrir el menú */}
-            <IonButtons slot="start">
-              <IonMenuToggle>
-                <IonButton>
-                  <IonIcon slot="icon-only" icon={menuOutline} />
-                </IonButton>
-              </IonMenuToggle>
-            </IonButtons>
-            
-            {/* Logo */}
-            <IonImg
-              src="/public/images/images.png" // Reemplaza con la ruta de tu logo
-              style={{ width: '100px', height: '40px' }}
-              alt="Logo"
-            />
-            <SearchBar/>
-            {/* Iconos a la derecha */}
-           <IonButtons slot="end">
-            {/* 👇 Modifica esta línea */}
-              <IonButton routerLink="/login">
-                <IonIcon slot="icon-only" icon={person} />
-              </IonButton>
-              <IonButton>
-                <IonIcon slot="icon-only" icon={cart} />
-              </IonButton>
-            </IonButtons>
-          </IonToolbar>
-        </IonHeader>
-        <IonContent className="ion-padding">
-            {/* Aquí se renderizarán las páginas */}
-            <IonRouterOutlet>
-                <Route path="/opcion1/sub1" render={() => <p>Página de Sub-Opción 1.1</p>} exact={true} />
-                <Route path="/opcion1/sub2" render={() => <p>Página de Sub-Opción 1.2</p>} exact={true} />
-                <Route path="/opcion2" render={() => <p>Página de Opción 2</p>} exact={true} />
-                <Route path="/opcion3" render={() => <p>Página de Opción 3</p>} exact={true} />
-                <Redirect exact from="/" to="/opcion1/sub1" />
-            </IonRouterOutlet>
-            <IonGrid>
-              <IonRow>
-                {
-                  items.map((item: any, index: number) => {
-                    console.log({item});
-                    return (
-                      <IonCol key={index} sizeXl='3' sizeLg='4' sizeMd='6' sizeSm='12'>
-                        <ItemCard key={index} item={item}></ItemCard>
-                      </IonCol>
-                    )
-                  })
-                }
-              </IonRow>
-            </IonGrid>
-        </IonContent>
-      </IonPage>
-    </>
-  );
+            <IonPage id="main-content">
+                <IonHeader>
+                    <IonToolbar color="dark">
+                        <IonButtons slot="start">
+                            <IonMenuButton />
+                        </IonButtons>
+                        <IonTitle>Ferremax</IonTitle>
+                        <IonButtons slot="end">
+                            <LanguageSwitcher />
+                            {isAuthenticated ? (
+                                <IonButton onClick={logout} title={t('logoutButton')}>
+                                    <IonIcon slot="icon-only" icon={logOutOutline} />
+                                </IonButton>
+                            ) : (
+                                <IonButton routerLink="/login" title={t('loginTitle')}>
+                                    <IonIcon slot="icon-only" icon={person} />
+                                </IonButton>
+                            )}
+                            <IonButton routerLink="/cart" title={t('shoppingCartTitle')}>
+                                <IonIcon slot="icon-only" icon={cart} />
+                            </IonButton>
+                        </IonButtons>
+                    </IonToolbar>
+                </IonHeader>
+                <IonContent fullscreen className="ion-padding">
+                    <IonHeader collapse="condense">
+                        <IonToolbar>
+                            <IonTitle size="large">Ferremax</IonTitle>
+                        </IonToolbar>
+                    </IonHeader>
+
+                    {isAuthenticated && user ? (
+                        <h2 className="ion-padding-start">{t('welcomeMessage', { name: user.name })}</h2>
+                    ) : (
+                        <h2 className="ion-padding-start">{t('welcomeGuest')}</h2>
+                    )}
+                    
+                    <ProductCarousel />
+                    
+                    <IonGrid>
+                        <IonRow>
+                            {filteredItems.map((item) => (
+                                <IonCol size="12" size-md="6" size-lg="4" key={item._id}>
+                                    <ItemCard item={item} />
+                                </IonCol>
+                            ))}
+                        </IonRow>
+                    </IonGrid>
+                </IonContent>
+            </IonPage>
+        </>
+    );
 };
 
 export default AppStructure;
+    

@@ -39,6 +39,10 @@ import UserAdministrationPage from './pages/UserAdministrations/userAdministrati
 import ResultadosPage from './pages/Resultados/Resultado.page';
 import { ItemProvider } from './contexts/Item.context';
 import { RegisterPage } from './pages/Register/Register.page';
+import { ShoppingCartPage } from './pages/ShoppingCart/ShoppingCart.page';
+import { CartProvider } from './contexts/Cart.context';
+import { PaymentResultPage } from './pages/PaymentResult/PaymentResult.page';
+import { AuthProvider } from './contexts/Auth.context';
 
 setupIonicReact();
 
@@ -51,11 +55,15 @@ const Service = () => {
         <Route exact path="/home">
           <Home username="Joaquín" />
         </Route>
+         <Route path="/payment-result" component={PaymentResultPage} />
         <Route exact path="/register">
           <RegisterPage />
         </Route>
         <Route exact path="/Formularios">
           <FormulariosPage />
+        </Route>
+        <Route exact path="/cart">
+          <ShoppingCartPage />
         </Route>
         <Route exact path="/Rubros">
           <RubrosPage />
@@ -74,13 +82,17 @@ const Service = () => {
 }
 
 const App: React.FC = () => (
-  <IonApp>
-    <IonReactRouter>
-      <ItemProvider>
-        <Service></Service>
-      </ItemProvider>
-    </IonReactRouter>
-  </IonApp>
+    <IonApp>
+        <IonReactRouter>
+            <AuthProvider> {/* <-- ENVUELVE CON AUTH */}
+                <ItemProvider>
+                    <CartProvider>
+                        <Service />
+                    </CartProvider>
+                </ItemProvider>
+            </AuthProvider>
+        </IonReactRouter>
+    </IonApp>
 );
 
 export default App;

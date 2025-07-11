@@ -4,11 +4,11 @@ import { Role } from "./Role.interface"
 import { Request } from "express"
 
 export interface UserProject {
-    _id: string | ObjectId
+    // _id: string | ObjectId; // <-- HEMOS ELIMINADO ESTA LÍNEA
     name: string
     lastName: string
     email: string
-    password: string
+    password?: string // Lo hacemos opcional para no enviarlo siempre
     permissions: any
     roles: Role[] | ObjectId[]
     clients: Client[] | ObjectId[]

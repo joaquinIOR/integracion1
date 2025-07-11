@@ -1,0 +1,18 @@
+{
+  "welcomeMessage": "¡Hola, {{name}}!",
+  "welcomeGuest": "Bienvenido a Ferremax",
+  "loginTitle": "Iniciar Sesión",
+  "registerTitle": "Crear Cuenta",
+  "emailLabel": "Email",
+  "passwordLabel": "Contraseña",
+  "confirmPasswordLabel": "Confirmar Contraseña",
+  "loginButton": "Entrar",
+  "registerButton": "Registrarse",
+  "logoutButton": "Cerrar Sesión",
+  "passwordsDoNotMatch": "Las contraseñas no coinciden.",
+  "registrationSuccess": "¡Registro exitoso! Ahora puedes iniciar sesión.",
+  "filterByBrand": "Filtrar por Marca",
+  "searchByName": "Buscar por Nombre",
+  "filtersTitle": "Filtros",
+  "shoppingCartTitle": "Carrito de Compras"
+}
